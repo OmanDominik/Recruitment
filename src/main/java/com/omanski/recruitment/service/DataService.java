@@ -5,6 +5,8 @@ import com.omanski.recruitment.model.GeoPosition;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -12,7 +14,6 @@ import java.util.Random;
 
 @Service
 public class DataService {
-
 
     public List<Airport> generateJsons(int size) {
 
@@ -39,7 +40,7 @@ public class DataService {
         for (int i = 0; i < size; i++) {
             _type = RandomStringUtils.randomAlphabetic(10);
             _id = getRandomInt(0, 100000000);
-            key = getRandomInt(0,10000);
+            key = getRandomInt(0, 10000);
             name = RandomStringUtils.randomAlphabetic(7);
             fullName = RandomStringUtils.randomAlphabetic(20);
             iata_airport_code = RandomStringUtils.randomAlphabetic(3).toUpperCase(Locale.ROOT);
@@ -68,5 +69,36 @@ public class DataService {
 
     private float getRandomFloat(float min, float max) {
         return (float) ((Math.random() * (max - min)) + min);
+    }
+
+    //_type, _id, name, type, latitude, longitude
+    public List<String> getBasicData(int size) {
+        List<Airport> airportsList = this.generateJsons(size);
+        List<String> result = new ArrayList<>();
+        for (Airport airport : airportsList) {
+            result.add(String.join(", ", airport.get_type(), String.valueOf(airport.get_id()), airport.getType(),
+                    String.valueOf(airport.getGeo_position().getLatitude()), String.valueOf(airport.getGeo_position().getLongitude())));
+        }
+
+        return result;
+    }
+
+    public List<String> getSpecifiedData(int size, List<String> params) {
+        List<Airport> airportsList = this.generateJsons(size);
+        List<String> result = new ArrayList<>();
+        for (Airport airport : airportsList) {
+            String line = "";
+            Field[] fields = Airport.class.getDeclaredFields();
+            for (Field field : fields) {
+                if (params.contains(field.getName())) {
+                    try {
+                        line.concat((String) field.get(airport));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return result;
     }
 }
