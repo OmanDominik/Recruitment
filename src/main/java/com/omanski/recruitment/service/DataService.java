@@ -15,6 +15,9 @@ import java.util.Random;
 @Service
 public class DataService {
 
+    private Airport ai;
+    private Airport airport;
+
     public List<Airport> generateJsons(int size) {
 
         List<Airport> generatedList = new ArrayList<>();
@@ -83,21 +86,30 @@ public class DataService {
         return result;
     }
 
-    public List<String> getSpecifiedData(int size, List<String> params) {
+    public List<String> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
         List<Airport> airportsList = this.generateJsons(size);
         List<String> result = new ArrayList<>();
         for (Airport airport : airportsList) {
             String line = "";
             Field[] fields = Airport.class.getDeclaredFields();
-            for (Field field : fields) {
-                if (params.contains(field.getName())) {
-                    try {
-                        line.concat((String) field.get(airport));
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
+            Field[] geoFields = GeoPosition.class.getDeclaredFields();
+            for (String param : params) {
+                for (Field field : fields) {
+                    if (param.equals(field.getName())) {
+                        field.setAccessible(true);
+                        line += (String.valueOf(field.get(airport) + ", "));
+                    }
+                }
+
+                for (Field field : geoFields) {
+                    if (param.equals(field.getName())) {
+                        field.setAccessible(true);
+                        line += (String.valueOf(field.get(airport.getGeo_position()) + ", "));
                     }
                 }
             }
+
+            result.add(line.substring(0, line.length() - 2));
         }
         return result;
     }

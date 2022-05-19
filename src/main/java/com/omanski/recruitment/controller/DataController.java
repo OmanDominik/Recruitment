@@ -27,7 +27,7 @@ public class DataController {
 
     @GetMapping("/specifiedData/{size}")
     @ResponseBody
-    public List<String> getSpecifiedData(@PathVariable("size") int size, @RequestParam List<String> params){
+    public List<String> getSpecifiedData(@PathVariable("size") int size, @RequestParam List<String> params) throws IllegalAccessException {
         return dataService.getSpecifiedData(size, params);
     }
 
