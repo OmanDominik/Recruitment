@@ -24,9 +24,9 @@ public class DataService {
     }
 
     //_type, _id, name, type, latitude, longitude
-    public List<List<String>> getBasicData(int size) {
+    public List<String> getBasicData(int size) {
         List<Airport> airportsList = this.generateJsons(size);
-        List<List<String>> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         for (Airport airport : airportsList) {
             List<String> line = new ArrayList<>();
 
@@ -37,20 +37,20 @@ public class DataService {
             line.add(String.valueOf(airport.getGeo_position().getLatitude()));
             line.add(String.valueOf(airport.getGeo_position().getLongitude()));
 
-            result.add(line);
+            result.add(String.join(",", line));
         }
 
         return result;
     }
 
-    public List<List<String>> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
+    public List<String> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
         for (String param: params){
             if(!(Airport.fieldsMap.containsKey(param) || Airport.geoFieldsMap.containsKey(param)))
                 return null;
         }
 
         List<Airport> airportsList = this.generateJsons(size);
-        List<List<String>> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
         for (Airport airport : airportsList) {
             List<String> line = new ArrayList<>();
@@ -61,7 +61,7 @@ public class DataService {
                     line.add(String.valueOf(Airport.geoFieldsMap.get(param).get(airport.getGeo_position())));
                 }
             }
-            result.add(line);
+            result.add(String.join(",", line));
         }
         return result;
     }

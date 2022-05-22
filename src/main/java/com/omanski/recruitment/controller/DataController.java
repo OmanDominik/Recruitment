@@ -1,14 +1,18 @@
 package com.omanski.recruitment.controller;
 
 import com.omanski.recruitment.model.Airport;
+import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.omanski.recruitment.service.DataService;
 
+import javax.print.attribute.standard.Media;
+import javax.print.attribute.standard.MediaTray;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,14 +32,13 @@ public class DataController {
     }
 
     @GetMapping("/basicData/{size}")
-    public List<List<String>> getBasicData(@PathVariable("size") int size){
-        return dataService.getBasicData(size);
+    public List<String> getBasicData(@PathVariable("size") int size){
+        return  dataService.getBasicData(size);
     }
 
     @GetMapping(value = "/specifiedData/{size}")
-    @ResponseBody
-    public List<List<String>> getSpecifiedData(@PathVariable("size") int size, @RequestParam List<String> params) throws IllegalAccessException {
-        return dataService.getSpecifiedData(size, params);
+    public List<String> getSpecifiedData(@PathVariable("size") int size, @RequestParam List<String> params, HttpServletResponse response) throws IllegalAccessException {
+        return  dataService.getSpecifiedData(size, params);
     }
 
 }
