@@ -39,7 +39,6 @@ public class DataService {
 
             result.add(String.join(",", line));
         }
-
         return result;
     }
 
