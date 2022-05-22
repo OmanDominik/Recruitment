@@ -44,11 +44,6 @@ public class DataService {
     }
 
     public List<String> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
-        for (String param: params){
-            if(!(Airport.fieldsMap.containsKey(param) || Airport.geoFieldsMap.containsKey(param)))
-                return null;
-        }
-
         List<Airport> airportsList = this.generateJsons(size);
         List<String> result = new ArrayList<>();
 
@@ -57,7 +52,7 @@ public class DataService {
             for (String param : params) {
                 if (Airport.fieldsMap.containsKey(param)) {
                     line.add(String.valueOf(Airport.fieldsMap.get(param).get(airport)));
-                } else {
+                } else if(Airport.geoFieldsMap.containsKey(param)){
                     line.add(String.valueOf(Airport.geoFieldsMap.get(param).get(airport.getGeo_position())));
                 }
             }
