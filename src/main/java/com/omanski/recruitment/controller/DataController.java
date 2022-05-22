@@ -16,12 +16,12 @@ public class DataController {
     DataService dataService;
 
     @GetMapping("/generate/json/{size}")
-    public ResponseEntity<List<Airport>> generateList(@PathVariable("size") int size){
-        return new ResponseEntity<List<Airport>>(dataService.generateJsons(size), HttpStatus.OK);
+    public List<Airport> generateList(@PathVariable("size") int size){
+        return dataService.generateJsons(size);
     }
 
     @GetMapping("/basicData/{size}")
-    public List<String> getBasicData(@PathVariable("size") int size){
+    public List<List<String>> getBasicData(@PathVariable("size") int size){
         return dataService.getBasicData(size);
     }
 
