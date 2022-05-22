@@ -15,6 +15,26 @@ import java.util.Random;
 @Setter
 
 public class Airport {
+
+    public static HashMap<String, Field> fieldsMap;
+    public static HashMap<String, Field> geoFieldsMap;
+    static {
+        fieldsMap = new HashMap<>();
+        geoFieldsMap = new HashMap<>();
+        Field[] fields = Airport.class.getDeclaredFields();
+        Field[] geoFields = GeoPosition.class.getDeclaredFields();
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+            fieldsMap.put(field.getName(), field);
+        }
+
+        for (Field field : geoFields) {
+            field.setAccessible(true);
+            geoFieldsMap.put(field.getName(), field);
+        }
+    }
+
     private String _type;
     private int _id;
     private int key;

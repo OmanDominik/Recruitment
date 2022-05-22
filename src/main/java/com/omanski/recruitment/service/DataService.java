@@ -29,45 +29,36 @@ public class DataService {
         List<List<String>> result = new ArrayList<>();
         for (Airport airport : airportsList) {
             List<String> line = new ArrayList<>();
+
             line.add(airport.get_type());
             line.add(String.valueOf(airport.get_id()));
             line.add(airport.getName());
             line.add(airport.getType());
             line.add(String.valueOf(airport.getGeo_position().getLatitude()));
             line.add(String.valueOf(airport.getGeo_position().getLongitude()));
+
+            result.add(line);
         }
 
         return result;
     }
 
-    public List<String> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
+    public List<List<String>> getSpecifiedData(int size, List<String> params) throws IllegalAccessException {
+        for (String param: params){
+            if(!(Airport.fieldsMap.containsKey(param) || Airport.geoFieldsMap.containsKey(param)))
+                return null;
+        }
+
         List<Airport> airportsList = this.generateJsons(size);
-
-        Map<String, Field> fieldsMap = new HashMap<>();
-        Field[] fields = Airport.class.getDeclaredFields();
-        Field[] geoFields = GeoPosition.class.getDeclaredFields();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-            fieldsMap.put(field.getName(), field);
-        }
-
-        for (Field field : geoFields) {
-            field.setAccessible(true);
-            fieldsMap.put(field.getName(), field);
-        }
-
-        List<String> result = new ArrayList<>();
+        List<List<String>> result = new ArrayList<>();
 
         for (Airport airport : airportsList) {
-            String line = "";
+            List<String> line = new ArrayList<>();
             for (String param : params) {
-                if (fieldsMap.get(param).get(airport) != null) {
-                    line.concat(String.valueOf(fieldsMap.get(param).get(airport)));
-                } else if (fieldsMap.get(param).get(airport.getGeo_position()) != null) {
-                    line.concat(String.valueOf(fieldsMap.get(param).get(airport.getGeo_position())));
+                if (Airport.fieldsMap.containsKey(param)) {
+                    line.add(String.valueOf(Airport.fieldsMap.get(param).get(airport)));
                 } else {
-                    return null;
+                    line.add(String.valueOf(Airport.geoFieldsMap.get(param).get(airport.getGeo_position())));
                 }
             }
             result.add(line);
