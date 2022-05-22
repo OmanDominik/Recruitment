@@ -1,6 +1,5 @@
 package com.omanski.recruitment.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -8,7 +7,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 
 @Getter

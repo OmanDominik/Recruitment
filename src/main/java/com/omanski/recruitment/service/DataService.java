@@ -1,13 +1,10 @@
 package com.omanski.recruitment.service;
 
 import com.omanski.recruitment.model.Airport;
-import com.omanski.recruitment.model.GeoPosition;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DataService {
