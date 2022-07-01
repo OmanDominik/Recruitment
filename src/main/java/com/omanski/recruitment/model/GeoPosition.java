@@ -10,4 +10,12 @@ import lombok.Setter;
 public class GeoPosition {
     private float latitude;
     private float longitude;
+
+    @Override
+    public String toString() {
+        return "GeoPosition{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }

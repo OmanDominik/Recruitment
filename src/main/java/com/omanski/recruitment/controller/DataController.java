@@ -34,4 +34,9 @@ public class DataController {
         return  dataService.getSpecifiedData(size, params);
     }
 
+    @GetMapping("/mathematicalOperations")
+    public List<String> calculateOperations(@RequestParam List<String> params) throws IllegalAccessException {
+        return  dataService.calculateGivenOperations(params);
+    }
+
 }

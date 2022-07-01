@@ -14,3 +14,6 @@ http://localhost:8080/basicData/3
 
 http://localhost:8080/specifiedData/3?params=_id,latitude,name,longitude  
 
+### Fourth endpoint '/mathematicalOperations'
+
+http://localhost:8080/mathematicalOperations?params=latitude*longitude,sqrt(longitude)

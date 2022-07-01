@@ -5,9 +5,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 @Getter
 @Setter
@@ -16,9 +14,13 @@ public class Airport {
 
     public static HashMap<String, Field> fieldsMap;
     public static HashMap<String, Field> geoFieldsMap;
+
+    public static List<String> classParams;
+
     static {
         fieldsMap = new HashMap<>();
         geoFieldsMap = new HashMap<>();
+        classParams = new ArrayList<>();
         Field[] fields = Airport.class.getDeclaredFields();
         Field[] geoFields = GeoPosition.class.getDeclaredFields();
 
@@ -31,6 +33,7 @@ public class Airport {
             field.setAccessible(true);
             geoFieldsMap.put(field.getName(), field);
         }
+
     }
 
     private String _type;
@@ -99,5 +102,25 @@ public class Airport {
 
     private static float getRandomFloat(float min, float max) {
         return (float) ((Math.random() * (max - min)) + min);
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "_type='" + _type + '\'' +
+                ", _id=" + _id +
+                ", key=" + key +
+                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", iata_airport_code='" + iata_airport_code + '\'' +
+                ", type='" + type + '\'' +
+                ", country='" + country + '\'' +
+                ", geo_position=" + geo_position +
+                ", location_id=" + location_id +
+                ", inEurope=" + inEurope +
+                ", countryCode='" + countryCode + '\'' +
+                ", coreCountry=" + coreCountry +
+                ", distance=" + distance +
+                '}';
     }
 }
