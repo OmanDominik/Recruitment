@@ -1,15 +1,14 @@
 package com.omanski.recruitment.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
-@Getter
-@Setter
-
+@Data
+@AllArgsConstructor
+@ToString
 public class Airport {
 
     public static HashMap<String, Field> fieldsMap;
@@ -51,26 +50,6 @@ public class Airport {
     private boolean coreCountry;
     private int distance;
 
-    public Airport(String _type, int _id, int key, String name, String fullName, String iata_airport_code, String type,
-                   String country, GeoPosition geo_position, int location_id, boolean inEurope, String countryCode,
-                   boolean coreCountry, int distance) {
-        this._type = _type;
-        this._id = _id;
-        this.key = key;
-        this.name = name;
-        this.fullName = fullName;
-        this.iata_airport_code = iata_airport_code;
-        this.type = type;
-        this.country = country;
-        this.geo_position = geo_position;
-        this.location_id = location_id;
-        this.inEurope = inEurope;
-        this.countryCode = countryCode;
-        this.coreCountry = coreCountry;
-        this.distance = distance;
-    }
-
-
     public static Airport getRandomInstance(){
         Random random = new Random();
         GeoPosition geo_position;
@@ -104,23 +83,4 @@ public class Airport {
         return (float) ((Math.random() * (max - min)) + min);
     }
 
-    @Override
-    public String toString() {
-        return "Airport{" +
-                "_type='" + _type + '\'' +
-                ", _id=" + _id +
-                ", key=" + key +
-                ", name='" + name + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", iata_airport_code='" + iata_airport_code + '\'' +
-                ", type='" + type + '\'' +
-                ", country='" + country + '\'' +
-                ", geo_position=" + geo_position +
-                ", location_id=" + location_id +
-                ", inEurope=" + inEurope +
-                ", countryCode='" + countryCode + '\'' +
-                ", coreCountry=" + coreCountry +
-                ", distance=" + distance +
-                '}';
-    }
 }
