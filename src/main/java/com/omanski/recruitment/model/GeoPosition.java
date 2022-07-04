@@ -1,21 +1,15 @@
 package com.omanski.recruitment.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+@NoArgsConstructor
 public class GeoPosition {
     private float latitude;
     private float longitude;
 
-    @Override
-    public String toString() {
-        return "GeoPosition{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
-    }
 }

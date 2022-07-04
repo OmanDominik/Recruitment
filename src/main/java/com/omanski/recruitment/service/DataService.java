@@ -1,31 +1,47 @@
 package com.omanski.recruitment.service;
 
 import com.omanski.recruitment.model.Airport;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.SpelEvaluationException;
+import org.springframework.expression.spel.SpelParseException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Getter
+@Setter
+@ConfigurationProperties(prefix="generating")
 public class DataService {
+
+    private String url;
 
     public List<Airport> generateJsons(int size) {
 
-        List<Airport> generatedList = new ArrayList<>();
+        final String uri = url + "generate/json/" + size;
 
-        for (int i = 0; i < size; i++) {
-            generatedList.add(Airport.getRandomInstance());
-        }
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Airport[]> response = restTemplate.getForEntity(uri, Airport[].class);
 
-        return generatedList;
+        Airport[] generatedList = response.getBody();
+
+        return List.of(generatedList);
     }
 
     //_type, _id, name, type, latitude, longitude
     public List<String> getBasicData(int size) {
         List<Airport> airportsList = this.generateJsons(size);
+
         List<String> result = new ArrayList<>();
         for (Airport airport : airportsList) {
             List<String> line = new ArrayList<>();
@@ -88,7 +104,7 @@ public class DataService {
                 result = parser.parseExpression(operation).getValue(Double.class);
                 System.out.println(result);
                 results.add(String.valueOf(result));
-            }catch (SpelEvaluationException e){
+            }catch (SpelEvaluationException | SpelParseException see){
                 results.add("Illegal operation called: " + operation);
             }
 
