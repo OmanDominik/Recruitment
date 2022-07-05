@@ -31,7 +31,7 @@ public class DataService {
     public List<Airport> generateJsons(int size) {
 
         final String uri = url + "generate/json/" + size;
-
+        System.out.println("Fetching: " + uri);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Airport[]> response = restTemplate.getForEntity(uri, Airport[].class);
 
