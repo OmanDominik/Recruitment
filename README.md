@@ -1,5 +1,9 @@
 # Recruitment
 
+## Api documentation
+
+http://localhost:8080/swagger-ui/index.html?configUrl=/reflectoring-openapi/swagger-config
+
 ## Sample endpoint calls
 
 ### First endpoint '/generate/json/{size}' 
