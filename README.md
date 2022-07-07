@@ -2,7 +2,7 @@
 
 ## Api documentation
 
-http://localhost:8080/swagger-ui/index.html?configUrl=/reflectoring-openapi/swagger-config
+http://localhost:8080/swagger-ui.html
 
 ## Sample endpoint calls
 
