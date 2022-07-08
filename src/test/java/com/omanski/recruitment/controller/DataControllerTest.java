@@ -68,6 +68,7 @@ class DataControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]._type", equalTo("uTUclIFUdn")))
+                .andExpect(jsonPath("$[*]._id", equalTo(List.of(4563496, 47254818, 12636970))))
                 .andReturn();
 
 
