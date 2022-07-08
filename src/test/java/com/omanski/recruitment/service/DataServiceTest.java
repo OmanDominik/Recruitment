@@ -103,7 +103,7 @@ class DataServiceTest {
     @Test
     void shouldReturnListOfSpecifiedData() throws IllegalAccessException {
         //given
-        int sizeOfListToGenerate = 0;
+        int sizeOfListToGenerate = 3;
         Airport[] airportsList = {
                 new Airport("uTUclIFUdn", 4563496, 106, "LeufsTo", "yvjPMgmdYKSiEJUTKFSr",
                         "EZP", "AwOFMFUW","nIkaLW",

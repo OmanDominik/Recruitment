@@ -7,7 +7,7 @@ http://localhost:9090/swagger-ui.html
 
 ## Sample endpoint calls
 
-### Forst endpoint '/basicData/{size}' contains ‘type, _id, name, type, latitude, longitude’
+### First endpoint '/basicData/{size}' contains ‘type, _id, name, type, latitude, longitude’
 
 http://localhost:9090/basicData/3
 
