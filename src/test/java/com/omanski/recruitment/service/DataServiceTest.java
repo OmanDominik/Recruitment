@@ -116,7 +116,7 @@ class DataServiceTest {
                 new Airport("OSYBUckTNi", 12636970, 8802, "aQMfmKu", "xUTkERZoGvOAQdvqoWhD",
                         "BWW", "sDqBOnfo","oDdvEN",
                         new GeoPosition(-19.52464f, -84.685905f),
-                        468830, false, "UX", false, 2614),
+                        468830, false, "UX", false, 2614)
         };
 
         Mockito
