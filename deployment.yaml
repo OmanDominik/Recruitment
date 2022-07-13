@@ -31,4 +31,4 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9090 # The port that the container is running on in the cluster
-          args: ["--generating.url=http://10.99.20.251:8080/"]
+          args: ["--generating.url=http://task1:8080/"]
